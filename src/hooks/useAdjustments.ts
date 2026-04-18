@@ -25,7 +25,7 @@ export const DEFAULT_ADJUSTMENTS: Adjustments = {
   saturation: 0,
   warmth: 0,
   vignette: 30,
-  grain: 10,
+  grain: 0,
   fade: 0,
   tilt: 0,
   cropX: 0,
@@ -66,5 +66,29 @@ export function useAdjustments() {
     })
   }, [])
 
-  return { adjustments: current, update, undo }
+  const resetSliders = useCallback(() => {
+    setCurrent((prev) => {
+      const next: Adjustments = {
+        ...prev,
+        brightness: 0,
+        contrast: 0,
+        saturation: 0,
+        warmth: 0,
+        vignette: 30,
+        grain: 0,
+        fade: 0,
+        tilt: 0,
+        cropX: 0,
+        cropY: 0,
+      }
+      setHistoryIndex((idx) => {
+        const trimmed = historyRef.current.slice(0, idx + 1)
+        historyRef.current = [...trimmed, next].slice(-HISTORY_MAX)
+        return historyRef.current.length - 1
+      })
+      return next
+    })
+  }, [])
+
+  return { adjustments: current, update, undo, resetSliders }
 }

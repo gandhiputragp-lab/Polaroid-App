@@ -36,7 +36,7 @@ export default function App() {
   const [image, setImage] = useState<HTMLImageElement | null>(null)
   const [phase, setPhase] = useState<"upload" | "edit">("upload")
   const exportRef = useRef<HTMLCanvasElement>(null)
-  const { adjustments, update, undo } = useAdjustments()
+  const { adjustments, update, undo, resetSliders } = useAdjustments()
   const { render } = usePolaroidRenderer()
 
   const currentPreset =
@@ -192,7 +192,7 @@ export default function App() {
                 <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-1">
                   <SlidersHorizontal className="h-3 w-3" /> Penyesuaian
                 </Label>
-                <AdjustmentPanel adjustments={adjustments} onChange={update} />
+                <AdjustmentPanel adjustments={adjustments} onChange={update} onReset={resetSliders} />
               </div>
 
               <Separator />

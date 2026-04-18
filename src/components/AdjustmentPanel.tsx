@@ -1,5 +1,6 @@
 import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
 import type { Adjustments } from "@/hooks/useAdjustments"
 
 interface SliderRowProps {
@@ -33,11 +34,31 @@ function SliderRow({ label, value, min, max, onChange }: SliderRowProps) {
 interface AdjustmentPanelProps {
   adjustments: Adjustments
   onChange: (partial: Partial<Adjustments>) => void
+  onReset: () => void
 }
 
-export function AdjustmentPanel({ adjustments, onChange }: AdjustmentPanelProps) {
+export function AdjustmentPanel({ adjustments, onChange, onReset }: AdjustmentPanelProps) {
+  const isModified =
+    adjustments.brightness !== 0 ||
+    adjustments.contrast !== 0 ||
+    adjustments.saturation !== 0 ||
+    adjustments.warmth !== 0 ||
+    adjustments.vignette !== 30 ||
+    adjustments.grain !== 0 ||
+    adjustments.fade !== 0
+
   return (
     <div className="space-y-3">
+      {isModified && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onReset}
+          className="h-6 px-2 text-xs text-muted-foreground w-full justify-end"
+        >
+          Reset semua
+        </Button>
+      )}
       <SliderRow
         label="Kecerahan"
         value={adjustments.brightness}
