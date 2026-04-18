@@ -78,8 +78,9 @@ export function usePolaroidRenderer() {
       scale: number = 1
     ) => {
       const preset = SIZE_PRESETS.find((p) => p.value === adj.preset) ?? SIZE_PRESETS[0]
-      const W = Math.round(preset.width * scale)
-      const H = Math.round(preset.height * scale)
+      const isLandscape = image ? image.naturalWidth > image.naturalHeight : false
+      const W = Math.round((isLandscape ? preset.height : preset.width) * scale)
+      const H = Math.round((isLandscape ? preset.width : preset.height) * scale)
 
       canvas.width = W
       canvas.height = H
@@ -117,14 +118,8 @@ export function usePolaroidRenderer() {
         octx.filter = buildCssFilter(adj)
 
         // Draw image with cover + crop offset
-        let srcW = image.naturalWidth
-        let srcH = image.naturalHeight
-
-        // Ensure portrait orientation
-        const isLandscape = srcW > srcH
-        if (isLandscape) {
-          ;[srcW, srcH] = [srcH, srcW]
-        }
+        const srcW = image.naturalWidth
+        const srcH = image.naturalHeight
 
         const scaleX = photoW / srcW
         const scaleY = photoH / srcH
@@ -135,22 +130,7 @@ export function usePolaroidRenderer() {
         const offsetX = ((photoW - drawW) / 2) * (1 + adj.cropX / 50)
         const offsetY = ((photoH - drawH) / 2) * (1 + adj.cropY / 50)
 
-        if (isLandscape) {
-          octx.save()
-          octx.translate(photoW / 2, photoH / 2)
-          octx.rotate(Math.PI / 2)
-          octx.translate(-photoH / 2, -photoW / 2)
-          octx.drawImage(
-            image,
-            offsetX - (drawW - drawH) / 2,
-            offsetY - (drawH - drawW) / 2,
-            drawH,
-            drawW
-          )
-          octx.restore()
-        } else {
-          octx.drawImage(image, offsetX, offsetY, drawW, drawH)
-        }
+        octx.drawImage(image, offsetX, offsetY, drawW, drawH)
 
         octx.filter = "none"
 

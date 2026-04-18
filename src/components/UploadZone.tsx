@@ -20,10 +20,6 @@ export function UploadZone({ onImageLoad }: UploadZoneProps) {
       const url = URL.createObjectURL(file)
       const img = new Image()
       img.onload = () => {
-        const isLandscape = img.naturalWidth > img.naturalHeight
-        if (isLandscape) {
-          toast.info("Foto dirotasi ke portrait")
-        }
         onImageLoad(img)
       }
       img.src = url
