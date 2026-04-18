@@ -153,9 +153,14 @@ export const FRAME_COLORS = [
 ]
 
 export const CAPTION_FONTS = [
-  { label: "Monospace", value: "monospace" },
-  { label: "Tulisan Tangan", value: "caveat" },
-  { label: "Sans-serif", value: "sans" },
+  { label: "Special Elite",   value: "special_elite",    previewFamily: "'Special Elite', cursive",    preview: "A I love you" },
+  { label: "Perm. Marker",    value: "permanent_marker", previewFamily: "'Permanent Marker', cursive", preview: "A I love you" },
+  { label: "Sacramento",      value: "sacramento",       previewFamily: "'Sacramento', cursive",       preview: "A I love you" },
+  { label: "Dancing Script",  value: "dancing_script",   previewFamily: "'Dancing Script', cursive",   preview: "A I love you" },
+  { label: "Caveat",          value: "caveat",           previewFamily: "'Caveat', cursive",            preview: "A I love you" },
+  { label: "Patrick Hand",    value: "patrick_hand",     previewFamily: "'Patrick Hand', cursive",     preview: "A I love you" },
+  { label: "Courier",         value: "monospace",        previewFamily: "'Courier New', monospace",    preview: "A I love you" },
+  { label: "Sans-serif",      value: "sans",             previewFamily: "system-ui, sans-serif",       preview: "A I love you" },
 ]
 
 export function getBorderSizes(width: number, height: number) {
@@ -167,11 +172,13 @@ export function getBorderSizes(width: number, height: number) {
 
 export function getFontFamily(font: string): string {
   switch (font) {
-    case "caveat":
-      return "'Caveat', cursive"
-    case "monospace":
-      return "'Courier New', Courier, monospace"
-    default:
-      return "system-ui, -apple-system, sans-serif"
+    case "special_elite":    return "'Special Elite', cursive"
+    case "permanent_marker": return "'Permanent Marker', cursive"
+    case "sacramento":       return "'Sacramento', cursive"
+    case "dancing_script":   return "'Dancing Script', cursive"
+    case "caveat":           return "'Caveat', cursive"
+    case "patrick_hand":     return "'Patrick Hand', cursive"
+    case "monospace":        return "'Courier New', Courier, monospace"
+    default:                 return "system-ui, -apple-system, sans-serif"
   }
 }

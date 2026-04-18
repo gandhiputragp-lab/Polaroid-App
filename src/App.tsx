@@ -254,6 +254,7 @@ export default function App() {
                   image={image}
                   adjustments={adjustments}
                   exportRef={exportRef}
+                  onCaptionMove={(x, y) => update({ captionX: x, captionY: y })}
                 />
               </div>
 

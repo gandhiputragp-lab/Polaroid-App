@@ -193,28 +193,42 @@ export function usePolaroidRenderer() {
         ctx.fillText("Upload foto di sini", photoX + photoW / 2, photoY + photoH / 2)
       }
 
-      // Caption
+      // Caption — drawn at free X/Y position (percentage of canvas)
       if (adj.caption.trim()) {
-        const captionAreaY = photoY + photoH
-        const captionAreaH = bottomBorder
         const fontFamily = getFontFamily(adj.captionFont)
         const isLight = isLightColor(adj.frameColor)
-        ctx.fillStyle = isLight ? "#333333" : "#eeeeee"
+        // Inside photo area use white/black based on contrast; inside border use frame-aware color
+        const textX = W * (adj.captionX / 100)
+        const textY = H * (adj.captionY / 100)
+        const inPhotoArea =
+          textX >= photoX && textX <= photoX + photoW &&
+          textY >= photoY && textY <= photoY + photoH
+
         ctx.textAlign = "center"
         ctx.textBaseline = "middle"
 
-        let fontSize = Math.round(16 * scale)
+        const baseFontSize = Math.round((adj.captionSize ?? 16) * scale)
+        let fontSize = baseFontSize
         ctx.font = `${fontSize}px ${fontFamily}`
-        while (ctx.measureText(adj.caption).width > photoW * 0.85 && fontSize > 8) {
+        while (ctx.measureText(adj.caption).width > W * 0.88 && fontSize > 8) {
           fontSize -= 1
           ctx.font = `${fontSize}px ${fontFamily}`
         }
 
-        ctx.fillText(
-          adj.caption,
-          W / 2,
-          captionAreaY + captionAreaH / 2
-        )
+        if (inPhotoArea) {
+          // Drop shadow for legibility over photo
+          ctx.shadowColor = "rgba(0,0,0,0.6)"
+          ctx.shadowBlur = Math.round(4 * scale)
+          ctx.fillStyle = "#ffffff"
+        } else {
+          ctx.shadowColor = "transparent"
+          ctx.shadowBlur = 0
+          ctx.fillStyle = isLight ? "#222222" : "#eeeeee"
+        }
+
+        ctx.fillText(adj.caption, textX, textY)
+        ctx.shadowBlur = 0
+        ctx.shadowColor = "transparent"
       }
 
       // Tilt: if needed re-render with rotation (handled by wrapper transform on preview)

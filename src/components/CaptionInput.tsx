@@ -1,9 +1,9 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { CAPTION_FONTS } from "@/constants/presets"
 import type { Adjustments } from "@/hooks/useAdjustments"
 import { Slider } from "@/components/ui/slider"
+import { MoveIcon } from "lucide-react"
 
 interface CaptionInputProps {
   adjustments: Adjustments
@@ -16,12 +16,10 @@ export function CaptionInput({ adjustments, onChange }: CaptionInputProps) {
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
           <Label className="text-xs text-muted-foreground">Teks Keterangan</Label>
-          <span className="text-xs text-muted-foreground">
-            {adjustments.caption.length}/40
-          </span>
+          <span className="text-xs text-muted-foreground">{adjustments.caption.length}/40</span>
         </div>
         <Input
-          placeholder="Nama & Tanggal, atau pesan singkat…"
+          placeholder="Nama, tanggal, atau pesan…"
           value={adjustments.caption}
           maxLength={40}
           onChange={(e) => onChange({ caption: e.target.value })}
@@ -31,41 +29,45 @@ export function CaptionInput({ adjustments, onChange }: CaptionInputProps) {
 
       <div className="space-y-1.5">
         <Label className="text-xs text-muted-foreground">Font</Label>
-        <ToggleGroup
-          type="single"
-          value={adjustments.captionFont}
-          onValueChange={(v) => { if (v) onChange({ captionFont: v }) }}
-          className="flex gap-1 justify-start"
-        >
+        <div className="grid grid-cols-2 gap-1">
           {CAPTION_FONTS.map((f) => (
-            <ToggleGroupItem
+            <button
               key={f.value}
-              value={f.value}
-              variant="outline"
-              size="sm"
-              className="text-xs px-2.5 h-7 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:border-primary"
+              onClick={() => onChange({ captionFont: f.value })}
+              className={[
+                "px-2 py-1.5 rounded text-left border transition-colors text-[11px] leading-tight",
+                adjustments.captionFont === f.value
+                  ? "border-primary bg-primary/10 text-primary font-medium"
+                  : "border-border bg-background text-muted-foreground hover:border-primary/40",
+              ].join(" ")}
             >
-              {f.label}
-            </ToggleGroupItem>
+              <span style={{ fontFamily: f.previewFamily }} className="text-xs block truncate">
+                {f.preview}
+              </span>
+              <span className="text-[10px] mt-0.5 block opacity-70">{f.label}</span>
+            </button>
           ))}
-        </ToggleGroup>
+        </div>
       </div>
 
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <Label className="text-xs text-muted-foreground">Kemiringan</Label>
-          <span className="text-xs font-mono text-muted-foreground">
-            {adjustments.tilt > 0 ? `+${adjustments.tilt}` : adjustments.tilt}°
-          </span>
+          <Label className="text-xs text-muted-foreground">Ukuran Teks</Label>
+          <span className="text-xs font-mono text-muted-foreground">{adjustments.captionSize}px</span>
         </div>
         <Slider
-          min={-15}
-          max={15}
-          step={1}
-          value={[adjustments.tilt]}
-          onValueChange={([v]) => onChange({ tilt: v })}
+          min={10} max={48} step={1}
+          value={[adjustments.captionSize]}
+          onValueChange={([v]) => onChange({ captionSize: v })}
         />
       </div>
+
+      {adjustments.caption.trim() && (
+        <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+          <MoveIcon className="h-3 w-3 shrink-0" />
+          Klik atau seret titik putih di preview untuk memindahkan teks
+        </p>
+      )}
     </div>
   )
 }

@@ -13,6 +13,9 @@ export interface Adjustments {
   cropY: number
   caption: string
   captionFont: string
+  captionX: number
+  captionY: number
+  captionSize: number
   frameColor: string
   frameTexture: boolean
   filter: string
@@ -32,6 +35,9 @@ export const DEFAULT_ADJUSTMENTS: Adjustments = {
   cropY: 0,
   caption: "",
   captionFont: "sans",
+  captionX: 50,
+  captionY: 91,
+  captionSize: 16,
   frameColor: "#ffffff",
   frameTexture: false,
   filter: "original",
@@ -80,6 +86,9 @@ export function useAdjustments() {
         tilt: 0,
         cropX: 0,
         cropY: 0,
+        captionX: 50,
+        captionY: 91,
+        captionSize: 16,
       }
       setHistoryIndex((idx) => {
         const trimmed = historyRef.current.slice(0, idx + 1)
