@@ -43,44 +43,65 @@ export interface FilterPreset {
 
 export const FILTER_PRESETS: FilterPreset[] = [
   {
+    // No effect
     label: "Original",
     value: "original",
   },
   {
-    label: "Vintage",
-    value: "vintage",
-    cssFilter: "sepia(0.4) contrast(0.92)",
-    warmShift: 25,
-    fade: 10,
+    // Polaroid 600 — warm overexposed glow, soft contrast, slight grain
+    label: "600",
+    value: "p600",
+    cssFilter: "brightness(1.08) contrast(0.88) saturate(0.85)",
+    warmShift: 32,
+    grain: 14,
+    fade: 8,
+    vignette: 30,
   },
   {
-    label: "Film",
-    value: "film",
-    saturate: -30,
-    grain: 35,
-    vignette: 65,
-  },
-  {
-    label: "Fade",
-    value: "fade",
-    cssFilter: "brightness(1.1) saturate(0.65) contrast(0.85)",
+    // Polaroid SX-70 — dreamy warm fade, low contrast, artistic blur feel
+    label: "SX-70",
+    value: "sx70",
+    cssFilter: "brightness(1.06) contrast(0.80) saturate(0.75)",
+    warmShift: 22,
     fade: 20,
+    grain: 10,
+    vignette: 50,
   },
   {
-    label: "Warm",
-    value: "warm",
-    cssFilter: "sepia(0.15) saturate(1.2)",
-    warmShift: 15,
+    // Polaroid Now — modern clean look, slight warmth, punchy enough for portraits
+    label: "Now",
+    value: "now",
+    cssFilter: "brightness(1.03) contrast(1.06) saturate(1.12)",
+    warmShift: 14,
+    grain: 6,
+    vignette: 28,
   },
   {
-    label: "Cool",
-    value: "cool",
-    cssFilter: "hue-rotate(200deg) saturate(0.85)",
+    // Polaroid Go — vivid saturated look, high contrast, party/outdoor feel
+    label: "Go",
+    value: "go",
+    cssFilter: "brightness(0.97) contrast(1.20) saturate(1.38)",
+    warmShift: 8,
+    grain: 8,
+    vignette: 42,
   },
   {
+    // Polaroid B&W 600 — classic monochrome with strong grain and vignette
     label: "B&W",
     value: "bw",
-    cssFilter: "grayscale(1) contrast(1.1)",
+    cssFilter: "grayscale(1) brightness(1.06) contrast(1.18)",
+    grain: 22,
+    vignette: 45,
+  },
+  {
+    // Aged / expired film — heavy sepia cast, faded, nostalgic
+    label: "Aged",
+    value: "aged",
+    cssFilter: "sepia(0.55) brightness(1.08) contrast(0.78) saturate(0.68)",
+    warmShift: 38,
+    fade: 24,
+    grain: 20,
+    vignette: 55,
   },
 ]
 
