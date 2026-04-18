@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 20% 97%;
+    --foreground: 20 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 10% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 15%;
+    --primary: 340 60% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 20% 92%;
+    --secondary-foreground: 20 10% 25%;
+    --muted: 30 15% 94%;
+    --muted-foreground: 20 10% 50%;
+    --accent: 340 40% 90%;
+    --accent-foreground: 340 60% 30%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 340 60% 45%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  #root {
+    min-height: 100svh;
+    width: 100%;
+  }
+}
