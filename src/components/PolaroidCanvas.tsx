@@ -3,7 +3,7 @@ import type { Adjustments } from "@/hooks/useAdjustments"
 import { usePolaroidRenderer } from "@/hooks/usePolaroidRenderer"
 import { SIZE_PRESETS } from "@/constants/presets"
 
-const PREVIEW_MAX_WIDTH = 300
+const PREVIEW_MAX_WIDTH = 320
 
 interface PolaroidCanvasProps {
   image: HTMLImageElement | null

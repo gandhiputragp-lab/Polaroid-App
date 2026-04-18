@@ -246,7 +246,7 @@ export default function App() {
             <div className="flex-1 flex flex-col items-center justify-between bg-muted/20 overflow-auto p-6 gap-4 min-w-0">
 
               <Badge variant="outline" className="text-[10px] font-mono self-center shrink-0">
-                Output: {currentPreset.width}×{currentPreset.height}px · Siap cetak {currentPreset.printLabel} @96dpi
+                Output: {currentPreset.width}×{currentPreset.height}px · Siap cetak {currentPreset.printLabel}
               </Badge>
 
               <div className="flex-1 flex items-center justify-center w-full min-h-0">

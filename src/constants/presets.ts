@@ -10,23 +10,23 @@ export const SIZE_PRESETS: SizePreset[] = [
   {
     label: "Instax Mini 2×",
     value: "instax",
-    width: 432,
-    height: 686,
-    printLabel: "108×172mm",
+    width: 1276,
+    height: 2031,
+    printLabel: "108×172mm @300dpi",
   },
   {
     label: "Compact",
     value: "compact",
-    width: 378,
-    height: 600,
-    printLabel: "94×150mm",
+    width: 1110,
+    height: 1772,
+    printLabel: "94×150mm @300dpi",
   },
   {
     label: "Large",
     value: "large",
-    width: 540,
-    height: 858,
-    printLabel: "135×214mm",
+    width: 1594,
+    height: 2528,
+    printLabel: "135×214mm @300dpi",
   },
 ]
 
