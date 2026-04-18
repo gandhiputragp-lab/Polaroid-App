@@ -58,6 +58,22 @@ function applyGrain(
   }
 }
 
+function applyShadowLift(imageData: ImageData, amount: number): void {
+  const data = imageData.data
+  if (amount === 0) return
+  // Map each channel: output = input * (255-amount)/255 + lift
+  // Warm lift: R gets more, B gets less → brownish shadow tone
+  const liftR = amount * 0.90
+  const liftG = amount * 0.72
+  const liftB = amount * 0.52
+  const compress = (255 - amount) / 255
+  for (let i = 0; i < data.length; i += 4) {
+    data[i]     = Math.min(255, data[i]     * compress + liftR)
+    data[i + 1] = Math.min(255, data[i + 1] * compress + liftG)
+    data[i + 2] = Math.min(255, data[i + 2] * compress + liftB)
+  }
+}
+
 function applyFrameGrain(imageData: ImageData, amount: number): void {
   const data = imageData.data
   if (amount === 0) return
@@ -134,8 +150,9 @@ export function usePolaroidRenderer() {
 
         octx.filter = "none"
 
-        // Pixel-level manipulation (warmth, grain)
+        // Pixel-level manipulation
         const imgData = octx.getImageData(0, 0, photoW, photoH)
+        applyShadowLift(imgData, filterPreset?.shadowLift ?? 0)
         applyWarmth(imgData, adj.warmth, filterPreset?.warmShift ?? 0)
         applyGrain(imgData, adj.grain, filterPreset?.grain ?? 0)
         octx.putImageData(imgData, 0, 0)

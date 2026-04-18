@@ -39,6 +39,7 @@ export interface FilterPreset {
   grain?: number
   vignette?: number
   saturate?: number
+  shadowLift?: number  // 0-60: lifts blacks to warm brownish gray
 }
 
 export const FILTER_PRESETS: FilterPreset[] = [
@@ -46,6 +47,16 @@ export const FILTER_PRESETS: FilterPreset[] = [
     // No effect
     label: "Original",
     value: "original",
+  },
+  {
+    // Kodak Portra 400 — shadow lift, warm muted tones, fine grain — iconic wedding film
+    label: "Portra",
+    value: "portra",
+    cssFilter: "brightness(1.02) contrast(0.84) saturate(0.80)",
+    shadowLift: 28,
+    warmShift: 18,
+    grain: 12,
+    vignette: 32,
   },
   {
     // Polaroid 600 — warm overexposed glow, soft contrast, slight grain
