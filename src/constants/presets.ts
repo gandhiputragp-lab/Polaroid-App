@@ -59,6 +59,35 @@ export const FILTER_PRESETS: FilterPreset[] = [
     vignette: 32,
   },
   {
+    // Fujifilm Instax Mini — punchy, slightly cool, modern instant film look
+    label: "Instax",
+    value: "instax_film",
+    cssFilter: "brightness(1.04) contrast(1.14) saturate(1.22) hue-rotate(-8deg)",
+    warmShift: -8,
+    grain: 7,
+    vignette: 22,
+  },
+  {
+    // Kodak Gold 200 — golden warm tones, slight haze, beloved for outdoor weddings
+    label: "Gold",
+    value: "gold",
+    cssFilter: "brightness(1.07) contrast(0.92) saturate(1.08) sepia(0.18)",
+    shadowLift: 18,
+    warmShift: 28,
+    grain: 10,
+    vignette: 28,
+  },
+  {
+    // Lomography cross-process — cyan shadows, high contrast, dramatic & artistic
+    label: "Lomo",
+    value: "lomo",
+    cssFilter: "brightness(0.95) contrast(1.30) saturate(1.45)",
+    warmShift: -30,
+    grain: 20,
+    vignette: 65,
+    shadowLift: 15,
+  },
+  {
     // Polaroid 600 — warm overexposed glow, soft contrast, slight grain
     label: "600",
     value: "p600",
